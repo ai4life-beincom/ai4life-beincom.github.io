@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Hiểu Rõ Về Bệnh Lao Phổi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f0f4f8; /* Background Light Grey */
+            color: #333333; /* Text Dark Grey */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-node {
+            border: 2px solid #68b9de; /* Light Blue */
+            background-color: #ffffff; /* Card Background */
+            color: #004f71; /* Dark Blue */
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            flex-grow: 1;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .flowchart-arrow {
+            color: #007cb0; /* Medium Blue */
+            font-size: 2rem;
+            line-height: 1;
+            font-weight: bold;
+            margin: 0 0.5rem;
+        }
+        .stat-card {
+            background-color: #004f71; /* Dark Blue */
+            color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .stat-card.orange {
+             background-color: #ff7d00; /* Orange Accent */
+        }
+         .stat-card.medium-blue {
+             background-color: #007cb0; /* Medium Blue */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!--
+    SPA Infographic Plan: "Báo Cáo Toàn Diện Về Bệnh Lao Phổi"
+
+    Narrative Flow:
+    1.  Introduction: Title, subtitle.
+    2.  Global & Vietnam Impact: Key statistics on prevalence and mortality.
+    3.  Understanding TB: Differentiating Latent TB and Active TB.
+    4.  Recognizing Symptoms: Visual guide to common signs of Active TB.
+    5.  Risk Factors: Identifying populations at higher risk.
+    6.  Transmission: Clarifying how TB spreads and how it doesn't.
+    7.  Diagnosis Journey: Simplified overview of the diagnostic process.
+    8.  Treatment Hope: Highlighting curability and success rates.
+    9.  Treatment Advances: Focus on newer, shorter, all-oral regimens for sensitive and resistant TB.
+    10. Key Challenge in Vietnam: The detection gap.
+    11. Prevention Strategies: Personal hygiene, community efforts, BCG vaccine.
+    12. Conclusion: Call to action and source acknowledgement.
+
+    Language: Vietnamese
+    -->
+    <!--
+    Visualization Choices (NO SVG, NO MERMAID JS):
+
+    1.  Global/Vietnam Burden (Inform):
+        * Visualization: Large text numbers in styled cards (HTML/CSS).
+        * Justification: Directly conveys key statistics with impact.
+    2.  Latent TB Prevalence (Inform/Compare):
+        * Visualization: Donut Chart (Chart.js - Canvas).
+        * Justification: Shows proportion of population with latent TB effectively.
+    3.  Latent vs. Active TB (Compare/Organize):
+        * Visualization: Two distinct info cards with bullet points (HTML/CSS with Tailwind).
+        * Justification: Clear side-by-side comparison of characteristics.
+    4.  Symptoms of Active TB (Inform):
+        * Visualization: Grid of icons (Unicode Emojis) with text labels (HTML/CSS).
+        * Justification: Visually appealing and quick to understand common symptoms.
+    5.  Risk Factors (Compare):
+        * Visualization: Horizontal Bar Chart (Chart.js - Canvas).
+        * Justification: Compares relative risk increase across different factors. Label wrapping applied.
+    6.  TB Transmission (Inform/Organize):
+        * Visualization: Styled list/cards with check/cross icons (Unicode) (HTML/CSS).
+        * Justification: Clearly indicates modes of transmission and non-transmission.
+    7.  Diagnosis Process (Organize):
+        * Visualization: Simplified flowchart using styled divs and text arrows (HTML/CSS with Tailwind).
+        * Justification: Shows sequence of diagnostic steps.
+    8.  Treatment Success Rates (Inform/Compare):
+        * Visualization: Bar Chart (Chart.js - Canvas).
+        * Justification: Compares success rates for drug-sensitive and drug-resistant TB.
+    9.  Treatment Duration Comparison (Compare):
+        * Visualization: Info cards comparing old vs. new regimen durations (HTML/CSS).
+        * Justification: Highlights advances in treatment length.
+    10. Detection Gap in Vietnam (Inform/Compare):
+        * Visualization: Donut Chart (Chart.js - Canvas).
+        * Justification: Illustrates the proportion of undetected TB cases.
+    11. TB Deaths vs. Traffic Accident Deaths in Vietnam (Compare):
+        * Visualization: Bar Chart (Chart.js - Canvas).
+        * Justification: Provides a stark comparison to emphasize TB's impact.
+    -->
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#004f71] mb-3">Hiểu Rõ Về Bệnh Lao Phổi</h1>
+            <p class="text-lg text-[#007cb0]">Thông tin cập nhật, dễ hiểu cho mọi người</p>
+        </header>
+
+        <main class="space-y-12">
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-6 text-center">Gánh Nặng Bệnh Lao: Con Số Biết Nói</h2>
+                <p class="text-center mb-8 max-w-3xl mx-auto text-gray-700">
+                    Bệnh lao vẫn là một thách thức sức khỏe cộng đồng nghiêm trọng trên toàn cầu và tại Việt Nam. Những con số này phản ánh quy mô của vấn đề và sự cấp thiết của các hành động can thiệp.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="stat-card">
+                        <p class="text-5xl font-bold">10,8 Tr</p>
+                        <p class="mt-2 text-lg">Người mắc mới toàn cầu (2023)</p>
+                    </div>
+                    <div class="stat-card medium-blue">
+                        <p class="text-5xl font-bold">172.000</p>
+                        <p class="mt-2 text-lg">Người mắc mới tại Việt Nam (ước tính 2023)</p>
+                    </div>
+                    <div class="stat-card orange">
+                        <p class="text-5xl font-bold">1,25 Tr</p>
+                        <p class="mt-2 text-lg">Người tử vong toàn cầu (2023)</p>
+                    </div>
+                </div>
+                <p class="text-xs text-center mt-6 text-gray-500">Nguồn: WHO Global TB Report 2024, Chương trình Chống lao Quốc gia Việt Nam.</p>
+            </section>
+
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-4 text-center">Lao Tiềm Ẩn: "Người Khổng Lồ" Thầm Lặng</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <p class="text-gray-700 mb-4">
+                            Một phần tư dân số thế giới, tương đương khoảng 2 tỷ người, được ước tính mang vi khuẩn lao ở dạng tiềm ẩn. Điều này có nghĩa là vi khuẩn tồn tại trong cơ thể nhưng không hoạt động và không gây triệu chứng. Tuy nhiên, những người này có nguy cơ phát triển thành bệnh lao hoạt động trong tương lai.
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Người có lao tiềm ẩn <span class="font-semibold text-[#007cb0]">không có triệu chứng</span>.</li>
+                            <li>Người có lao tiềm ẩn <span class="font-semibold text-red-600]">KHÔNG lây bệnh</span> cho người khác.</li>
+                            <li>Có thể phát triển thành lao hoạt động nếu hệ miễn dịch suy yếu.</li>
+                            <li>Điều trị dự phòng có thể ngăn ngừa bệnh tiến triển.</li>
+                        </ul>
+                    </div>
+                    <div class="chart-container h-72 md:h-80">
+                        <canvas id="latentTbChart"></canvas>
+                    </div>
+                </div>
+                 <p class="text-xs text-center mt-6 text-gray-500">Nguồn: WHO.</p>
+            </section>
+            
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-6 text-center">Phân Biệt Lao Tiềm Ẩn và Lao Hoạt Động</h2>
+                <div class="flex flex-col md:flex-row justify-around items-stretch mt-4 space-y-6 md:space-y-0 md:space-x-6">
+                    <div class="flex-1 p-6 border-2 border-dashed border-[#68b9de] rounded-lg text-center bg-blue-50">
+                        <h3 class="font-bold text-xl text-[#007cb0] mb-3">Lao Tiềm Ẩn (LTBI) 🤫</h3>
+                        <ul class="text-left space-y-2 list-disc list-inside text-gray-700">
+                            <li>Vi khuẩn lao "ngủ yên" trong cơ thể.</li>
+                            <li>Không có triệu chứng bệnh.</li>
+                            <li>X-quang phổi thường bình thường.</li>
+                            <li>Xét nghiệm TST hoặc IGRA dương tính.</li>
+                            <li><span class="font-semibold text-green-600">KHÔNG</span> lây nhiễm cho người khác.</li>
+                            <li>Có nguy cơ phát triển thành lao hoạt động.</li>
+                            <li>Cần điều trị dự phòng ở nhóm nguy cơ cao.</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 p-6 border-2 border-solid border-[#ff7d00] rounded-lg text-center bg-orange-50">
+                        <h3 class="font-bold text-xl text-[#ff7d00] mb-3">Lao Hoạt Động (Bệnh Lao) 🗣️</h3>
+                        <ul class="text-left space-y-2 list-disc list-inside text-gray-700">
+                            <li>Vi khuẩn lao hoạt động, nhân lên và gây bệnh.</li>
+                            <li>Có các triệu chứng (ho, sốt, sụt cân...).</li>
+                            <li>X-quang phổi thường có tổn thương.</li>
+                            <li>Xét nghiệm đờm có thể dương tính.</li>
+                            <li><span class="font-semibold text-red-600">CÓ THỂ</span> lây nhiễm cho người khác (nếu là lao phổi/thanh quản).</li>
+                            <li>Cần điều trị bằng thuốc kháng lao.</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-xs text-center mt-6 text-gray-500">Nguồn: CDC, WHO.</p>
+            </section>
+
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-6 text-center">Dấu Hiệu Nhận Biết Lao Phổi Hoạt Động</h2>
+                 <p class="text-center mb-8 max-w-3xl mx-auto text-gray-700">
+                    Nếu bạn có các triệu chứng sau đây kéo dài, đặc biệt là ho trên 2 tuần, hãy đến cơ sở y tế để được khám và tư vấn. Phát hiện sớm giúp điều trị hiệu quả và ngăn ngừa lây lan.
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 text-center">
+                    <div class="p-4 bg-blue-50 rounded-lg shadow">
+                        <p class="text-5xl">😮‍💨</p>
+                        <p class="font-semibold mt-2 text-[#007cb0]">Ho kéo dài (>2 tuần)</p>
+                    </div>
+                    <div class="p-4 bg-red-50 rounded-lg shadow">
+                        <p class="text-5xl">🩸</p>
+                        <p class="font-semibold mt-2 text-red-600">Ho ra máu</p>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-lg shadow">
+                        <p class="text-5xl">🌡️</p>
+                        <p class="font-semibold mt-2 text-yellow-600">Sốt nhẹ về chiều</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg shadow">
+                        <p class="text-5xl">😓</p>
+                        <p class="font-semibold mt-2 text-indigo-600">Đổ mồ hôi đêm</p>
+                    </div>
+                    <div class="p-4 bg-green-50 rounded-lg shadow">
+                        <p class="text-5xl">⚖️</p>
+                        <p class="font-semibold mt-2 text-green-600">Sụt cân không rõ lý do</p>
+                    </div>
+                     <div class="p-4 bg-gray-100 rounded-lg shadow col-span-2 sm:col-span-1 lg:col-span-1">
+                        <p class="text-5xl">😩</p>
+                        <p class="font-semibold mt-2 text-gray-600">Mệt mỏi, kém ăn</p>
+                    </div>
+                     <div class="p-4 bg-cyan-50 rounded-lg shadow col-span-2 sm:col-span-1 lg:col-span-2">
+                        <p class="text-5xl">흉</p>
+                        <p class="font-semibold mt-2 text-cyan-600">Đau ngực, khó thở</p>
+                    </div>
+                </div>
+                <p class="text-xs text-center mt-6 text-gray-500">Nguồn: WHO, CDC.</p>
+            </section>
+
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-4 text-center">Ai Có Nguy Cơ Mắc Bệnh Lao Cao Hơn?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <p class="text-gray-700 mb-4">
+                           Mọi người đều có thể mắc lao, nhưng một số nhóm có nguy cơ cao hơn do hệ miễn dịch suy yếu hoặc các yếu tố khác. Nhận biết các yếu tố nguy cơ giúp tầm soát và phòng ngừa hiệu quả hơn.
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-gray-600">
+                            <li>Người nhiễm HIV/AIDS</li>
+                            <li>Người mắc bệnh tiểu đường</li>
+                            <li>Người suy dinh dưỡng</li>
+                            <li>Người hút thuốc lá, lạm dụng rượu bia</li>
+                            <li>Người sử dụng thuốc ức chế miễn dịch</li>
+                            <li>Người tiếp xúc gần gũi với bệnh nhân lao</li>
+                            <li>Người sống trong điều kiện đông đúc, thông gió kém</li>
+                            <li>Trẻ em dưới 5 tuổi và người cao tuổi</li>
+                        </ul>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="riskFactorsChart"></canvas>
+                    </div>
+                </div>
+                <p class="text-xs text-center mt-6 text-gray-500">Nguồn: WHO, CDC. Biểu đồ minh họa mức độ tăng nguy cơ tương đối.</p>
+            </section>
+            
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-6 text-center">Bệnh Lao Lây Truyền Như Thế Nào?</h2>
+                <p class="text-center mb-8 max-w-3xl mx-auto text-gray-700">
+                    Vi khuẩn lao chủ yếu lây lan qua không khí khi người mắc lao phổi hoặc lao thanh quản ho, hắt hơi, nói chuyện hoặc hát, giải phóng các hạt nhỏ chứa vi khuẩn vào không khí.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                        <h3 class="text-xl font-semibold text-green-700 mb-2">✔️ Lây qua:</h3>
+                        <p class="text-gray-700">Hít phải không khí có chứa vi khuẩn lao do người bệnh phát tán khi ho, hắt hơi, nói chuyện, khạc nhổ.</p>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                        <h3 class="text-xl font-semibold text-red-700 mb-2">❌ KHÔNG lây qua:</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Bắt tay, ôm hôn.</li>
+                            <li>Dùng chung đồ ăn, thức uống.</li>
+                            <li>Chạm vào quần áo, ga giường, đồ dùng cá nhân của người bệnh.</li>
+                            <li>Muỗi đốt hoặc côn trùng cắn.</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-xs text-center mt-6 text-gray-500">Nguồn: WHO, CDC.</p>
+            </section>
+
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-6 text-center">Hành Trình Chẩn Đoán Bệnh Lao</h2>
+                <p class="text-center mb-8 max-w-3xl mx-auto text-gray-700">
+                    Chẩn đoán lao bao gồm nhiều bước, từ khám lâm sàng, hỏi bệnh sử đến các xét nghiệm chuyên sâu. Phát hiện sớm và chính xác là chìa khóa cho điều trị thành công.
+                </p>
+                <div class="flex flex-col md:flex-row items-stretch justify-center space-y-4 md:space-y-0 md:space-x-2 w-full">
+                    <div class="flowchart-node">Có triệu chứng<br>nghi ngờ lao</div>
+                    <div class="flex items-center justify-center flowchart-arrow">➔</div>
+                    <div class="flowchart-node">Khám bác sĩ &<br>Hỏi bệnh sử, yếu tố nguy cơ</div>
+                    <div class="flex items-center justify-center flowchart-arrow">➔</div>
+                    <div class="flowchart-node">Xét nghiệm sàng lọc<br>(X-quang phổi, TST/IGRA)</div>
+                    <div class="flex items-center justify-center flowchart-arrow">➔</div>
+                    <div class="flowchart-node bg-[#007cb0] text-white">Chẩn đoán xác định<br>(Xpert MTB/RIF, Nuôi cấy)</div>
+                </div>
+                 <p class="text-xs text-center mt-6 text-gray-500">Nguồn: WHO, CDC.</p>
+            </section>
+
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-4 text-center">Tin Vui: Bệnh Lao Có Thể Chữa Khỏi!</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <p class="text-gray-700 mb-4">
+                            Với các phác đồ điều trị hiện đại và sự tuân thủ của người bệnh, tỷ lệ chữa khỏi bệnh lao rất cao. Ngay cả lao kháng thuốc cũng có những tiến bộ vượt bậc trong điều trị.
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Điều trị đúng phác đồ, đủ thời gian.</li>
+                            <li>Không tự ý ngưng thuốc hoặc thay đổi liều.</li>
+                            <li>Điều trị có kiểm soát trực tiếp (DOT) giúp đảm bảo tuân thủ.</li>
+                            <li>Các phác đồ mới ngắn hơn, hiệu quả hơn đang được áp dụng.</li>
+                        </ul>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="treatmentSuccessRateChart"></canvas>
+                    </div>
+                </div>
+                <p class="text-xs text-center mt-6 text-gray-500">Nguồn: WHO. Tỷ lệ thành công cho lao nhạy cảm thuốc và lao kháng thuốc (MDR/RR-TB) với phác đồ mới.</p>
+            </section>
+
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-6 text-center">Tiến Bộ Vượt Bậc: Phác Đồ Điều Trị Ngắn Hơn, Hoàn Toàn Bằng Thuốc Uống</h2>
+                 <p class="text-center mb-8 max-w-3xl mx-auto text-gray-700">
+                    Các nghiên cứu và hướng dẫn mới nhất từ WHO đã mang lại những phác đồ điều trị lao (cả nhạy cảm và kháng thuốc) được rút ngắn đáng kể, hoàn toàn bằng thuốc uống, giúp cải thiện sự tuân thủ và chất lượng cuộc sống cho người bệnh.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                    <div class="p-6 rounded-lg bg-teal-50 border-l-4 border-teal-500 shadow">
+                        <h3 class="font-bold text-xl text-teal-800 mb-2">Lao Nhạy Cảm Thuốc</h3>
+                        <p class="text-4xl font-bold mt-2 text-teal-600">4-6 tháng</p>
+                        <p class="text-sm mt-2 text-gray-700">Phác đồ uống, tỷ lệ thành công cao. Một số trường hợp đủ điều kiện có thể dùng phác đồ 4 tháng.</p>
+                    </div>
+                    <div class="p-6 rounded-lg bg-orange-50 border-l-4 border-orange-500 shadow">
+                        <h3 class="font-bold text-xl text-orange-800 mb-2">Lao Kháng Thuốc (MDR/RR-TB)</h3>
+                        <p class="text-4xl font-bold mt-2 text-orange-600">Chỉ từ 6 tháng</p>
+                        <p class="text-sm mt-2 text-gray-700">Với các phác đồ mới như BPaLM/BPaL, hoàn toàn bằng thuốc uống, hiệu quả cao.</p>
+                    </div>
+                </div>
+                 <p class="text-xs text-center mt-6 text-gray-500">Nguồn: WHO Guidelines 2022-2024.</p>
+            </section>
+            
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-4 text-center">Thách Thức Tại Việt Nam: Khoảng Trống Phát Hiện</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container">
+                        <canvas id="detectionGapChart"></canvas>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-3xl font-bold text-[#ff7d00] mb-3">~40% Bệnh Nhân "Ẩn"</h3>
+                        <p class="text-gray-700 mb-4">Ước tính khoảng 40% người mắc lao tại Việt Nam chưa được phát hiện và điều trị. Đây là nguồn lây nhiễm chính và là rào cản lớn trong nỗ lực chấm dứt bệnh lao.</p>
+                        <p class="text-gray-700">Tăng cường phát hiện chủ động, đặc biệt trong các nhóm nguy cơ cao, là nhiệm vụ cấp bách.</p>
+                         <div class="mt-6">
+                             <h4 class="font-semibold text-lg text-[#004f71] mb-2">So Sánh Tử Vong Hàng Năm (Ước Tính)</h4>
+                             <div class="chart-container h-56 md:h-64">
+                                <canvas id="deathComparisonChart"></canvas>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+                <p class="text-xs text-center mt-6 text-gray-500">Nguồn: Chương trình Chống lao Quốc gia Việt Nam, WHO.</p>
+            </section>
+
+            <section class="p-6 bg-white rounded-lg shadow-xl">
+                <h2 class="text-2xl font-bold text-[#004f71] mb-6 text-center">Phòng Ngừa Bệnh Lao: Trách Nhiệm Của Mỗi Người</h2>
+                 <p class="text-center mb-8 max-w-3xl mx-auto text-gray-700">
+                    Phòng bệnh hơn chữa bệnh. Mỗi chúng ta đều có thể góp phần ngăn chặn sự lây lan của bệnh lao bằng những hành động thiết thực.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-4 bg-sky-50 rounded-lg shadow">
+                        <h3 class="font-semibold text-lg text-sky-700 mb-2">🛡️ Nâng Cao Sức Khỏe</h3>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Dinh dưỡng đầy đủ, cân bằng.</li>
+                            <li>Tập thể dục đều đặn.</li>
+                            <li>Không hút thuốc, hạn chế rượu bia.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-lime-50 rounded-lg shadow">
+                        <h3 class="font-semibold text-lg text-lime-700 mb-2">🏠 Môi Trường Sống</h3>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Giữ nhà cửa thông thoáng, sạch sẽ.</li>
+                            <li>Tận dụng ánh sáng mặt trời.</li>
+                            <li>Che miệng khi ho, hắt hơi.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-purple-50 rounded-lg shadow">
+                        <h3 class="font-semibold text-lg text-purple-700 mb-2">👶 Tiêm Phòng BCG</h3>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Tiêm cho trẻ sơ sinh theo chương trình Tiêm chủng Mở rộng.</li>
+                            <li>Giúp phòng các thể lao nặng ở trẻ.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-pink-50 rounded-lg shadow lg:col-span-3">
+                        <h3 class="font-semibold text-lg text-pink-700 mb-2">🔍 Phát Hiện Sớm & Điều Trị</h3>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Đi khám ngay nếu có triệu chứng nghi lao (ho > 2 tuần).</li>
+                            <li>Người mắc lao tiềm ẩn cần điều trị dự phòng nếu có chỉ định.</li>
+                            <li>Người bệnh cần tuân thủ điều trị để tránh lây lan.</li>
+                            <li>Không kỳ thị người bệnh lao.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <p class="text-xs text-center mt-6 text-gray-500">Nguồn: WHO, CDC.</p>
+            </section>
+            
+            <footer class="text-center mt-12 py-8 border-t border-gray-300">
+                <p class="text-xl font-semibold text-[#004f71] mb-2">Vì một Việt Nam không còn bệnh lao!</p>
+                <p class="text-sm text-gray-600">Hãy hành động ngay hôm nay để bảo vệ bản thân, gia đình và cộng đồng.</p>
+                <p class="text-xs mt-4 text-gray-500">
+                    Thông tin trong infographic này mang tính chất tham khảo, được tổng hợp từ các nguồn uy tín như Tổ chức Y tế Thế giới (WHO), Trung tâm Kiểm soát và Phòng ngừa Dịch bệnh Hoa Kỳ (CDC), và Chương trình Chống lao Quốc gia Việt Nam. Luôn tham khảo ý kiến bác sĩ để có thông tin y tế chính xác và phù hợp nhất.
+                </p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const palette = {
+                darkBlue: '#004f71',
+                mediumBlue: '#007cb0',
+                lightBlue: '#68b9de',
+                orange: '#ff7d00',
+                textDarkGrey: '#333333',
+                lightGrey: '#dcdcdc',
+                green: '#28a745',
+                red: '#dc3545',
+                yellow: '#ffc107'
+            };
+
+            function wrapLabels(labels, maxWidth = 16) {
+                return labels.map(label => {
+                    if (typeof label !== 'string' || label.length <= maxWidth) {
+                        return label;
+                    }
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + ' ' + word).trim().length > maxWidth && currentLine.length > 0) {
+                            lines.push(currentLine);
+                            currentLine = word;
+                        } else {
+                            currentLine = (currentLine + ' ' + word).trim();
+                        }
+                    });
+                    if (currentLine.length > 0) {
+                       lines.push(currentLine);
+                    }
+                    return lines.length > 0 ? lines : [label];
+                });
+            }
+            
+            const defaultChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                if (!item || !item.chart || !item.chart.data || !item.chart.data.labels) return '';
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                    return label.join(' ');
+                                }
+                                return label || '';
+                            }
+                        }
+                    },
+                    legend: {
+                       display: true,
+                       position: 'bottom',
+                       labels: { color: palette.textDarkGrey, boxWidth: 15 }
+                    }
+                },
+                scales: {
+                    x: { ticks: { color: palette.textDarkGrey }, grid: { display: false }, border: { display: false } },
+                    y: { ticks: { color: palette.textDarkGrey }, grid: { color: palette.lightGrey }, border: { display: false } }
+                }
+            };
+
+            const latentTbChartCtx = document.getElementById('latentTbChart')?.getContext('2d');
+            if(latentTbChartCtx) {
+                new Chart(latentTbChartCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Dân số có lao tiềm ẩn (ước tính)', 'Dân số còn lại'],
+                        datasets: [{
+                            data: [25, 75], // ~1/4 dân số
+                            backgroundColor: [palette.orange, palette.lightBlue],
+                            borderColor: '#ffffff',
+                            borderWidth: 4,
+                        }]
+                    },
+                    options: { ...defaultChartOptions, cutout: '70%' }
+                });
+            }
+
+            const riskFactorsChartCtx = document.getElementById('riskFactorsChart')?.getContext('2d');
+            if(riskFactorsChartCtx) {
+                new Chart(riskFactorsChartCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: wrapLabels(['Đồng nhiễm HIV', 'Bệnh bụi phổi Silic', 'Suy dinh dưỡng', 'Tiểu đường', 'Hút thuốc lá nặng']),
+                        datasets: [{
+                            label: 'Mức độ tăng nguy cơ (tương đối)',
+                            data: [20, 15, 10, 8, 6], // Example relative risk factors
+                            backgroundColor: [palette.orange, palette.darkBlue, palette.mediumBlue, palette.lightBlue, palette.lightGrey],
+                        }]
+                    },
+                    options: { ...defaultChartOptions, indexAxis: 'y', plugins: {...defaultChartOptions.plugins, legend: {display: false}} }
+                });
+            }
+
+            const treatmentSuccessRateChartCtx = document.getElementById('treatmentSuccessRateChart')?.getContext('2d');
+            if(treatmentSuccessRateChartCtx) {
+                new Chart(treatmentSuccessRateChartCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: wrapLabels(['Lao nhạy cảm thuốc', 'Lao kháng thuốc (phác đồ mới)']),
+                        datasets: [{
+                            label: 'Tỷ lệ điều trị thành công',
+                            data: [89, 70], // Example success rates
+                            backgroundColor: [palette.mediumBlue, palette.orange],
+                            borderRadius: 5,
+                            barPercentage: 0.6
+                        }]
+                    },
+                    options: { ...defaultChartOptions, plugins: {...defaultChartOptions.plugins, legend: {display: false}}, scales: {...defaultChartOptions.scales, y: {...defaultChartOptions.scales.y, max: 100, ticks: {...defaultChartOptions.scales.y.ticks, callback: value => value + '%'}}} }
+                });
+            }
+
+            const detectionGapChartCtx = document.getElementById('detectionGapChart')?.getContext('2d');
+            if(detectionGapChartCtx) {
+                new Chart(detectionGapChartCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Ca bệnh được phát hiện (VN)', 'Ca bệnh chưa được phát hiện (VN)'],
+                        datasets: [{
+                            data: [60, 40], // ~40% gap
+                            backgroundColor: [palette.mediumBlue, palette.orange],
+                            borderColor: '#ffffff',
+                            borderWidth: 4,
+                        }]
+                    },
+                    options: { ...defaultChartOptions, cutout: '70%' }
+                });
+            }
+
+            const deathComparisonChartCtx = document.getElementById('deathComparisonChart')?.getContext('2d');
+            if(deathComparisonChartCtx) {
+                new Chart(deathComparisonChartCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: wrapLabels(['Tử vong do Lao (VN, ước tính)', 'Tử vong do TNGT (VN)']),
+                        datasets: [{
+                            label: 'Số ca tử vong hàng năm',
+                            data: [13000, 7000], // Example data
+                            backgroundColor: [palette.orange, palette.lightBlue],
+                            borderRadius: 5,
+                            barPercentage: 0.5
+                        }]
+                    },
+                    options: { ...defaultChartOptions, plugins: {...defaultChartOptions.plugins, legend: {display: false}} }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
